@@ -1,0 +1,213 @@
+.preferenceModal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 100px;
+  z-index: 1050;
+}
+.preference-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px;
+}
+
+.preference-modal-header {
+  font-family: "Merriweather", serif;
+  border-bottom: 1px solid #000000;
+  font-weight: 400;
+  font-style: normal;
+  color: #000000;
+  font-size: 40px !important;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#preferencesNextButton {
+  background-color: #fdfdfd;
+  color: #000000;
+  padding: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border: 1px solid #000000;
+  margin-left: auto;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#preferencesNextButton::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 15px solid #000000;
+}
+
+#preferencesNextButton.all-selected {
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#preferencesNextButton.all-selected::after {
+  border-left: 15px solid #ffffff;
+}
+
+.preference-tag {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  color: white;
+  background-color: #000000;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+.preference-tag:focus {
+  outline: none;
+}
+.preference-category {
+  margin-top: 20px;
+}
+.preference-modal-header {
+  font-size: 18px;
+  color: #000000;
+}
+
+.save-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.header-with-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingredient-search {
+  padding: 8px;
+  margin-left: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-color: black;
+}
+
+.load-more-btn {
+  background: none;
+  border: none;
+  color: #000000;
+  padding: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.load-more-btn:hover {
+  text-decoration: none;
+}
+
+.load-more-cuisines {
+  background: none;
+  border: none;
+  color: #000000;
+  padding: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.load-more-cuisines:hover {
+  text-decoration: none;
+}
+
+.preference-category.dietary-preferences .preference-tag.selected {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.preference-category.cuisine-preferences .preference-tag.selected {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.preference-tag.selected {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 1px solid #000000;
+}
+
+#bioInput textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+#profilePicInput h3 {
+  margin-left: 165px;
+}
+
+.profile-pic-display {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 1px solid #000000;
+}
+
+#profilePicDisplay.profile-pic-display {
+  margin-left: 150px;
+}
+
+#profilePicInput.profile-info {
+  margin: 0 auto;
+}
+
+.profile-pic-upload {
+  cursor: pointer;
+  margin-left: 150px;
+}
+
+.preferences-next-btn {
+  background-color: white;
+  border: solid 1px #000000;
+  color: #000000;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.modal-footer {
+  margin-right: -15px;
+}

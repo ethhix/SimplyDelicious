@@ -1,0 +1,868 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #fff;
+}
+
+.header-logo img {
+  flex: 1;
+}
+
+.header-logo,
+.auth-buttons {
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 200px;
+  min-width: 600px;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.header-nav .page-link {
+  margin-top: 20px;
+  font-size: 60px;
+  font-family: "Damion", cursive;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  padding: 0;
+}
+
+.header-nav .page-link,
+.header-nav .page-link:hover {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-grow: 1;
+  max-width: 100%;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 40px;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.search-input {
+  flex-grow: 1;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: width 0.5s ease, opacity 0.5s ease;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  font-size: 30px;
+  cursor: default;
+}
+
+.search-input:focus {
+  opacity: 1;
+  border: 2px solid #ccc;
+}
+
+.profile-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: 100px;
+}
+
+.profile-container input {
+  display: none;
+}
+
+.profile-container label {
+  cursor: pointer;
+}
+
+.profile-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-container .dropdown {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.profile-container input:checked ~ .dropdown {
+  display: flex;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  border: 1px solid black;
+  background-color: white;
+  padding: 20px;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.dropdown a {
+  padding: 5px 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown a:hover {
+  background: #f0f0f0;
+}
+
+#toggler {
+  opacity: 0;
+  pointer-events: none;
+  touch-action: none;
+}
+
+input:checked ~ .dropdown {
+  display: flex;
+}
+
+.login-options {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.header-profile {
+  padding: 5px;
+}
+
+#loginButtonNav {
+  border-radius: 20px;
+}
+
+.loginButton {
+  border-radius: 20px;
+}
+
+#loginForm button {
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: white;
+  font-size: 20px;
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 30px auto;
+  height: 800px;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1px solid black !important;
+}
+
+.modal-header .close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 30px;
+}
+
+.modal-header .btn-back {
+  align-self: flex-start;
+}
+
+#loginModalLabel.modal-title {
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 30px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-body hr {
+  width: 104%;
+  border: 0;
+  height: 1px;
+  background-color: #000000;
+  margin: 30px 0;
+}
+
+#successModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.success-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.success-modal-content button {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.success-modal-content button:hover {
+  background-color: black;
+  color: white;
+}
+
+.success-modal-content p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+#accountCreatedSuccessModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#accountCreated-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 30px;
+  border-radius: 8px;
+  width: 60%;
+  max-width: 500px; /* Maximum width for larger screens */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  text-align: center; /* Center text for a cleaner look */
+}
+
+#accountCreatedSuccessModal .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#accountCreatedSuccessModal .close:hover {
+  color: #000;
+}
+
+#accountCreatedSuccessModal button {
+  border: 2px solid #000;
+  background-color: #fff;
+  color: #000;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 20px;
+}
+
+#accountCreatedSuccessModal button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+#accountCreated-content p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.modal-backdrop {
+  display: none;
+}
+
+#forgotUsernameModal {
+}
+
+#googleLogin {
+  padding: 20px;
+  border-radius: 50px;
+  width: 300px;
+  background-color: white;
+  margin-top: 20px;
+  transition: background-color ease-out 0.5s;
+}
+
+#googleLogin .fa-google {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+#googleLogin:hover {
+  background-color: black;
+  color: white;
+}
+
+#username {
+  margin-bottom: 10px;
+}
+
+#username,
+#password {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  padding-right: 30px;
+}
+
+#loginForm {
+  margin-top: 10px;
+}
+
+#signupModal .modal-body {
+  overflow-x: auto;
+}
+
+#signupButtonNav {
+  border-radius: 20px;
+}
+
+#signupModalLabel.modal-title {
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 30px;
+}
+
+#signupForm input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.error {
+  font-family: "Abril Fatface", serif;
+  font-size: 20px;
+}
+
+#signupForm .signupButton {
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#signupForm h4 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.show-pass {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.show-login-pass {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.progress .progress-bar-danger {
+  background-color: #e90f10;
+}
+
+.progress .progress-bar-warning {
+  background-color: #ffad00;
+}
+
+.progress .progress-bar-success {
+  background-color: #02b502;
+}
+
+.fa-eye {
+  color: #000000;
+  cursor: pointer;
+}
+
+.fa-circle {
+  font-size: 6px;
+}
+
+.fa-check {
+  color: #02b502;
+}
+
+#forgotUsernameForm input,
+#forgotPasswordForm input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.btn-back {
+  margin-right: auto;
+  color: black;
+  font-size: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  padding: 5px 10px;
+  margin: 0 auto;
+  max-width: 600px;
+  min-width: 320px;
+}
+
+.btn-auth {
+  flex-shrink: 0;
+  font-size: 30px;
+  margin-right: 20px;
+  background-color: white;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+
+.btn-auth:hover {
+  background-color: black;
+  color: white;
+}
+
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 50px;
+  box-shadow: 0px 2px 10px rgba(130, 130, 130, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.floating-btn:hover {
+  background-color: #4b4848;
+}
+
+.floating-btn:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(87, 87, 87, 0.5);
+}
+
+.recipe-highlight {
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  background-color: #bad7f4;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.recipe-highlight-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 992px) {
+  .recipe-highlight {
+    flex-direction: column;
+  }
+
+  .recipe-highlight-image img {
+    width: 100%;
+  }
+
+  .recipe-highlight-title {
+    font-size: 5vw;
+  }
+
+  .recipe-highlight-description {
+    font-size: 4vw;
+  }
+}
+
+.recipe-highlight-title {
+  text-align: center;
+  font-size: 50px;
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  color: black;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.recipe-highlight-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.star-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 60px;
+  margin: 0 5px;
+}
+
+.recipe-highlight-description {
+  font-size: 60px;
+  font-family: "Satisfy", cursive;
+  font-weight: 400;
+  color: black;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.recipe-highlight a:hover {
+  text-decoration: none;
+}
+
+.recipe-highlight-title,
+.recipe-highlight-description {
+  flex: 1;
+}
+
+#popular-categories-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0;
+}
+
+#popular-categories-section h2 {
+  font-weight: bold;
+  font-family: "Abril Fatface", serif;
+  font-size: 40px;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.categories-container h3 {
+  font-family: "Damion", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.category-card img {
+  margin-top: 30px;
+  margin-right: 20px;
+  width: 350px;
+  height: 350px;
+}
+
+.category-card h3 {
+  color: black;
+}
+
+.category-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.category-name {
+  font-size: 1.8em;
+  color: black;
+  margin-top: 10px;
+}
+
+.recipe-section {
+  max-width: 1700px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-info h3 {
+  font-weight: bold;
+  font-family: "Abril Fatface", serif;
+  font-size: 30px;
+  color: black;
+}
+
+.recipes-container {
+  width: 1700px;
+  height: auto;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.recipe-section h2 {
+  display: inline-block;
+  align-self: stretch;
+  margin-left: 0px;
+  margin-right: auto;
+  text-align: left;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-weight: bold;
+  font-family: "Abril Fatface", serif;
+  font-size: 40px;
+  color: black;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  flex: 1;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+
+.recipe-info {
+  width: 100%;
+  padding: 1em;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.ui-checkbox {
+  position: absolute;
+  cursor: pointer;
+  margin-top: 10px;
+  top: 10px;
+  right: 10px;
+}
+
+.ui-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.ui-checkbox .bookmark-icon {
+  color: rgb(0, 0, 0);
+  font-size: 32px;
+  transition: color 0.3s ease;
+}
+
+.ui-checkbox input[type="checkbox"]:checked + .bookmark-icon {
+  color: gold;
+}
+
+.recipe-interactions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1em;
+}
+
+.voting-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.voting-buttons button {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voting-buttons button.active {
+  background-color: #000000;
+  color: white;
+}
+
+.voting-buttons button {
+  transition: background-color 0.3s ease;
+}
+
+.voting-buttons button:hover {
+  background-color: #dedede;
+}
+
+.comments {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.recipe-interactions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.fa-comment {
+  margin-right: 0.5em;
+}
+
+@media (max-width: 600px) {
+  .recipe-info {
+    flex-direction: column;
+  }
+
+  .voting-buttons {
+    margin-top: 0;
+  }
+}
+
+#latest-recipes {
+  text-align: center;
+  padding: 20px;
+}
+
+.homepage--recipe-title {
+  font-size: 16px;
+  color: #333;
+  padding: 8px;
+  margin: 0;
+}
+
+.load-more-recipes {
+  display: block;
+  background-color: #000000;
+  color: #fff;
+  padding: 10px 20px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+}
+
+.load-more:hover {
+  background-color: #555;
+}
+
+.latestrecipestitle {
+  text-align: center;
+  font-size: 40px;
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #000000;
+}

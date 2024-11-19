@@ -1,0 +1,514 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.header-logo,
+.auth-buttons {
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 100px;
+  min-width: 600px;
+  white-space: nowrap;
+}
+
+.header-nav a {
+  margin-top: 20px;
+  font-size: 60px;
+  font-family: "Damion", cursive;
+}
+
+.header-nav a,
+.header-nav a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 550px;
+  max-width: 100%;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  outline: none;
+  font-size: 40px;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.search-input {
+  flex-grow: 1;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: width 0.5s ease, opacity 0.5s ease;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  font-size: 30px;
+  cursor: default;
+}
+
+.search-input:focus {
+  opacity: 1;
+  visibility: visible;
+}
+
+.profile-container {
+  position: absolute;
+  width: 250px;
+  top: 60px;
+  right: 0;
+}
+
+#toggler {
+  opacity: 0;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  border: 1px solid black;
+  background-color: white;
+  padding: 20px;
+  gap: 5px;
+  left: -60px;
+  z-index: 1000;
+}
+
+input:checked ~ .dropdown {
+  display: flex;
+}
+
+.profile-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.login-options {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.header-profile {
+  padding: 5px;
+}
+
+/* Login Modal and button styling */
+#loginButtonNav {
+  border-radius: 20px;
+}
+
+.loginButton {
+  border-radius: 20px;
+}
+
+#loginForm button {
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: white;
+  font-size: 20px;
+}
+
+.modal-custom-height {
+  height: 650px !important;
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 30px auto;
+  height: 800px;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1px solid black !important;
+}
+
+.modal-header .close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 30px;
+}
+
+.modal-header .btn-back {
+  align-self: flex-start;
+}
+
+#loginModalLabel.modal-title {
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 30px;
+}
+
+#googleLogin {
+  padding: 20px;
+  border-radius: 50px;
+  width: 300px;
+  background-color: white;
+  margin-top: 20px;
+  transition: background-color ease-out 0.5s;
+}
+
+#googleLogin .fa-google {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+#googleLogin:hover {
+  background-color: black;
+  color: white;
+}
+
+#username {
+  margin-bottom: 10px;
+}
+
+#username,
+#password {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  padding-right: 30px;
+}
+
+#loginForm {
+  margin-top: 10px;
+}
+
+#signupModal .modal-body {
+  overflow-x: auto;
+}
+
+#signupButtonNav {
+  border-radius: 20px;
+}
+
+#signupModalLabel.modal-title {
+  font-family: "Abril Fatface", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 30px;
+}
+
+#signupForm input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.error {
+  font-family: "Abril Fatface", serif;
+  font-size: 20px;
+}
+
+#signupForm .signupButton {
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#signupForm h4 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.show-pass {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.show-login-pass {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.progress .progress-bar-danger {
+  background-color: #e90f10;
+}
+
+.progress .progress-bar-warning {
+  background-color: #ffad00;
+}
+
+.progress .progress-bar-success {
+  background-color: #02b502;
+}
+
+.fa-eye {
+  color: #000000;
+  cursor: pointer;
+}
+
+.fa-circle {
+  font-size: 6px;
+}
+
+.fa-check {
+  color: #02b502;
+}
+
+#forgotUsernameForm input,
+#forgotPasswordForm input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  width: 100%;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.btn-back {
+  margin-right: auto;
+  color: black;
+  font-size: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  padding: 5px 10px;
+  margin: 0 auto;
+  max-width: 600px;
+  min-width: 320px;
+}
+
+.btn-auth {
+  flex-shrink: 0;
+  font-size: 30px;
+  margin-right: 20px;
+  background-color: white;
+  padding: 10px 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  border: 1px solid black;
+}
+
+.post {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.post-title {
+  color: #000000;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.text-muted {
+  font-size: 14px;
+  color: #999;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comments-container {
+  margin-top: 40px;
+}
+
+.comment {
+  background-color: #fff;
+  border-left: 4px solid #000000;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.comment-form {
+  background: #fff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form textarea {
+  width: 100%;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+}
+
+.comment-form textarea:focus {
+  border-color: #000000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+#postCommentBtn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+#postCommentBtn:hover {
+  background-color: #333;
+}
+
+.dicussion-comment-form textarea {
+  margin-top: 10px;
+}
+
+.dicussion-comment-form button {
+  margin-top: 10px;
+  background-color: #000000;
+  color: white;
+}
+
+.comments-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.nested-comments-list {
+  list-style-type: none;
+  padding-left: 20px;
+  border-left: 2px solid #eee;
+}
+
+.comment-likes.liked {
+  color: red;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  gap: 10px;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.post-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #444;
+  margin-top: 10px;
+}
+
+.text-muted {
+  font-size: 14px;
+  color: #6c757d;
+  margin-top: 5px;
+  display: block;
+}
+
+.reply-form {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  resize: none;
+}
+
+.reply-form button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  margin-right: 10px;
+}
+
+.reply-form button[type="submit"] {
+  background-color: #000000;
+  color: white;
+}
+
+.reply-form button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
