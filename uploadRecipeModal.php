@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/uploadRecipeModalStyles.css">
+    <link rel="stylesheet" href="../assets/css/uploadRecipeModalStyles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -483,7 +483,7 @@ eggs 3"></textarea>
             </div>
         </div>
     </div>
-    <script src="assets/js/uploadRecipeModalScript.js"></script>
+    <script src="../assets/js/uploadRecipeModalScript.js"></script>
 </body>
 
 </html>

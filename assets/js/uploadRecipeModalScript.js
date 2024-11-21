@@ -126,15 +126,24 @@ function updateDropdown(inputElement, lineIndex, index) {
   }
 }
 
+function getLineText(inputElement, lineIndex) {
+  const lines = inputElement.value.split("\n");
+  return lines[lineIndex] || "";
+}
+
 function fetchIngredients(search, inputElement, lineIndex, index) {
-  fetch("http://localhost/SimplyDelicious Website/getRecipeIngredients.php", {
+  fetch("http://localhost/SimplyDelicious/getRecipeIngredients.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ search }),
   })
     .then((response) => response.json())
-    .then((data) => displayDropdown(data, inputElement, lineIndex, index))
-    .catch((error) => console.error("Fetch error:", error));
+    .then((data) => {
+      displayDropdown(data, inputElement, lineIndex, index);
+    })
+    .catch((error) => {
+      console.error("Fetch error:", error);
+    });
 }
 
 function extractQuantity(lineText) {
@@ -260,203 +269,205 @@ function validateIngredients() {
   return { isValid: true };
 }
 
-// --------------------------------------------------------------------- //
+// ---------------------------------------------------------------------
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   var modal = $("#createRecipeModal");
-//   var closeBtn = document.getElementsByClassName("close")[0];
-//   var secondCloseBtn = document.getElementById("secondClose");
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = $("#createRecipeModal");
+  var closeBtn = document.getElementsByClassName("close")[0];
+  var secondCloseBtn = document.getElementById("secondClose");
 
-//   console.log(
-//     "Initial state of allIngredientsLists:",
-//     JSON.stringify(allIngredientsLists)
-//   );
+  console.log(
+    "Initial state of allIngredientsLists:",
+    JSON.stringify(allIngredientsLists)
+  );
 
-//   function closeModal() {
-//     modal.modal("hide");
-//     resetModal();
-//   }
+  function closeModal() {
+    modal.modal("hide");
+    resetModal();
+  }
 
-//   function resetModal() {
-//     // Reset modal sections
-//     document.getElementById("firstSection").style.display = "block";
-//     document.getElementById("secondSection").style.display = "none";
-//     document.getElementById("thirdSection").style.display = "none";
+  function resetModal() {
+    // Reset modal sections
+    document.getElementById("firstSection").style.display = "block";
+    document.getElementById("secondSection").style.display = "none";
+    document.getElementById("thirdSection").style.display = "none";
 
-//     // Reset form fields
-//     document.getElementById("recipeTitle").value = "";
-//     allIngredientsLists = [{ subtitle: "", ingredients: [] }];
-//     allInstructions = [];
-//     const ingredientsContainer = document.getElementById(
-//       "ingredientsContainer"
-//     );
-//     const instructionsContainer = document.getElementById(
-//       "instructionsContainer"
-//     );
+    // Reset form fields
+    document.getElementById("recipeTitle").value = "";
+    allIngredientsLists = [{ subtitle: "", ingredients: [] }];
+    allInstructions = [];
+    const ingredientsContainer = document.getElementById(
+      "ingredientsContainer"
+    );
+    const instructionsContainer = document.getElementById(
+      "instructionsContainer"
+    );
 
-//     while (ingredientsContainer.children.length > 1) {
-//       ingredientsContainer.removeChild(ingredientsContainer.lastChild);
-//     }
-//     while (instructionsContainer.children.length > 1) {
-//       instructionsContainer.removeChild(instructionsContainer.lastChild);
-//     }
+    while (ingredientsContainer.children.length > 1) {
+      ingredientsContainer.removeChild(ingredientsContainer.lastChild);
+    }
+    while (instructionsContainer.children.length > 1) {
+      instructionsContainer.removeChild(instructionsContainer.lastChild);
+    }
 
-//     const initialIngredientTextarea = ingredientsContainer.querySelector(
-//       ".ingredient-textarea"
-//     );
-//     const initialInstructionTextarea = instructionsContainer.querySelector(
-//       ".instructions-textarea"
-//     );
-//     const initialIngredientSubtitleInput = ingredientsContainer.querySelector(
-//       ".ingredient-subtitle-input"
-//     );
-//     const initialInstructionInput = instructionsContainer.querySelector(
-//       ".instructions-input"
-//     );
+    const initialIngredientTextarea = ingredientsContainer.querySelector(
+      ".ingredient-textarea"
+    );
+    const initialInstructionTextarea = instructionsContainer.querySelector(
+      ".instructions-textarea"
+    );
+    const initialIngredientSubtitleInput = ingredientsContainer.querySelector(
+      ".ingredient-subtitle-input"
+    );
+    const initialInstructionInput = instructionsContainer.querySelector(
+      ".instructions-input"
+    );
 
-//     if (initialIngredientTextarea) initialIngredientTextarea.value = "";
-//     if (initialInstructionTextarea) initialInstructionTextarea.value = "";
-//     if (initialIngredientSubtitleInput)
-//       initialIngredientSubtitleInput.value = "";
-//     if (initialInstructionInput) initialInstructionInput.value = "";
+    if (initialIngredientTextarea) initialIngredientTextarea.value = "";
+    if (initialInstructionTextarea) initialInstructionTextarea.value = "";
+    if (initialIngredientSubtitleInput)
+      initialIngredientSubtitleInput.value = "";
+    if (initialInstructionInput) initialInstructionInput.value = "";
 
-//     if (initialIngredientTextarea)
-//       initialIngredientTextarea.style.display = "block";
-//     if (initialInstructionTextarea)
-//       initialInstructionTextarea.style.display = "block";
+    if (initialIngredientTextarea)
+      initialIngredientTextarea.style.display = "block";
+    if (initialInstructionTextarea)
+      initialInstructionTextarea.style.display = "block";
 
-//     //Reset selected options
-//     selectedDietaryOptions = [];
-//     selectedCuisines = [];
-//     selectedMealTypes = [];
-//     selectedRecipeDifficulty = "";
-//     selectedPreparationTime = 0;
-//     selectedCookingTime = 0;
-//     selectedCookingMethods = [];
-//     nutritionFacts = {
-//       calories: { value: 0, unit: "g", valid: true },
-//       totalFat: { value: 0, unit: "g", valid: true },
-//       saturatedFat: { value: 0, unit: "g", valid: true },
-//       cholesterol: { value: 0, unit: "mg", valid: true },
-//       sodium: { value: 0, unit: "mg", valid: true },
-//       potassium: { value: 0, unit: "mg", valid: true },
-//       totalCarbohydrate: { value: 0, unit: "g", valid: true },
-//       sugars: { value: 0, unit: "g", valid: true },
-//       protein: { value: 0, unit: "g", valid: true },
-//     };
+    //Reset selected options
+    selectedDietaryOptions = [];
+    selectedCuisines = [];
+    selectedMealTypes = [];
+    selectedRecipeDifficulty = "";
+    selectedPreparationTime = 0;
+    selectedCookingTime = 0;
+    selectedCookingMethods = [];
+    nutritionFacts = {
+      calories: { value: 0, unit: "g", valid: true },
+      totalFat: { value: 0, unit: "g", valid: true },
+      saturatedFat: { value: 0, unit: "g", valid: true },
+      cholesterol: { value: 0, unit: "mg", valid: true },
+      sodium: { value: 0, unit: "mg", valid: true },
+      potassium: { value: 0, unit: "mg", valid: true },
+      totalCarbohydrate: { value: 0, unit: "g", valid: true },
+      sugars: { value: 0, unit: "g", valid: true },
+      protein: { value: 0, unit: "g", valid: true },
+    };
 
-//     //Reset image upload
-//     uploadedImageData = null;
-//     const imageSlot = document.querySelector(".image-slot");
-//     if (imageSlot) {
-//       imageSlot.innerHTML = "";
-//     }
+    //Reset image upload
+    uploadedImageData = null;
+    const imageSlot = document.querySelector(".image-slot");
+    if (imageSlot) {
+      imageSlot.innerHTML = "";
+    }
 
-//     const uploadButton = document.getElementById("uploadImageBtn");
-//     if (uploadButton) {
-//       uploadButton.style.display = "block";
-//     }
+    const uploadButton = document.getElementById("uploadImageBtn");
+    if (uploadButton) {
+      uploadButton.style.display = "block";
+    }
 
-//     const hiddenFileInput = document.getElementById("hiddenFileInput");
-//     if (hiddenFileInput) {
-//       hiddenFileInput.value = "";
-//     }
-//   }
+    const hiddenFileInput = document.getElementById("hiddenFileInput");
+    if (hiddenFileInput) {
+      hiddenFileInput.value = "";
+    }
+  }
 
-//   function initializeExistingSections() {
-//     const container = document.getElementById("instructionsContainer");
-//     const existingSections = container.querySelectorAll(
-//       ".new-instructions-section-subtitle"
-//     );
-//     existingSections.forEach((section, index) => {
-//       const subtitleInput = section.querySelector(".instructions-input");
-//       const textArea = section.querySelector(".instructions-textarea");
-//       setupInstructionSection(subtitleInput, textArea, index);
-//       updateInstructions(subtitleInput, textArea, index);
-//     });
-//   }
+  function initializeExistingSections() {
+    const container = document.getElementById("instructionsContainer");
+    const existingSections = container.querySelectorAll(
+      ".new-instructions-section-subtitle"
+    );
+    existingSections.forEach((section, index) => {
+      const subtitleInput = section.querySelector(".instructions-input");
+      const textArea = section.querySelector(".instructions-textarea");
+      setupInstructionSection(subtitleInput, textArea, index);
+      updateInstructions(subtitleInput, textArea, index);
+    });
+  }
 
-//   function setupInstructionSection(subtitleInput, textArea, index) {
-//     subtitleInput.addEventListener("input", () => {
-//       updateInstructions(subtitleInput, textArea, index);
-//     });
+  function setupInstructionSection(subtitleInput, textArea, index) {
+    subtitleInput.addEventListener("input", () => {
+      updateInstructions(subtitleInput, textArea, index);
+    });
 
-//     textArea.addEventListener("input", () => {
-//       updateInstructions(subtitleInput, textArea, index);
-//     });
-//   }
+    textArea.addEventListener("input", () => {
+      updateInstructions(subtitleInput, textArea, index);
+    });
+  }
 
-//   function updateInstructions(subtitleInput, textArea, index) {
-//     const subtitle = subtitleInput.value.trim();
-//     const instructions = textArea.value
-//       .trim()
-//       .split("\n")
-//       .filter((line) => line);
-//     allInstructions[index] = { subtitle, instructions };
-//     console.log(
-//       `Updated Instructions for section index ${index}:`,
-//       allInstructions[index]
-//     );
-//   }
+  function updateInstructions(subtitleInput, textArea, index) {
+    const subtitle = subtitleInput.value.trim();
+    const instructions = textArea.value
+      .trim()
+      .split("\n")
+      .filter((line) => line);
+    allInstructions[index] = { subtitle, instructions };
+    console.log(
+      `Updated Instructions for section index ${index}:`,
+      allInstructions[index]
+    );
+  }
 
-//   function createInstructionSection() {
-//     let groupDiv = document.createElement("div");
-//     groupDiv.className = "new-instructions-section-subtitle";
+  function createInstructionSection() {
+    let groupDiv = document.createElement("div");
+    groupDiv.className = "new-instructions-section-subtitle";
 
-//     let newInput = document.createElement("input");
-//     newInput.type = "text";
-//     newInput.className = "instructions-input";
-//     newInput.placeholder = "Subtitle for this section...";
+    let newInput = document.createElement("input");
+    newInput.type = "text";
+    newInput.className = "instructions-input";
+    newInput.placeholder = "Subtitle for this section...";
 
-//     let newTextArea = document.createElement("textarea");
-//     newTextArea.className = "instructions-textarea";
-//     newTextArea.placeholder = "Detail the instruction step...";
-//     newTextArea.rows = 5;
+    let newTextArea = document.createElement("textarea");
+    newTextArea.className = "instructions-textarea";
+    newTextArea.placeholder = "Detail the instruction step...";
+    newTextArea.rows = 5;
 
-//     groupDiv.appendChild(newInput);
-//     groupDiv.appendChild(newTextArea);
-//     container.appendChild(groupDiv);
+    groupDiv.appendChild(newInput);
+    groupDiv.appendChild(newTextArea);
+    container.appendChild(groupDiv);
 
-//     setupInstructionSection(
-//       newInput,
-//       newTextArea,
-//       container.children.length - 1
-//     );
-//   }
+    setupInstructionSection(
+      newInput,
+      newTextArea,
+      container.children.length - 1
+    );
+  }
 
-//   closeBtn.addEventListener("click", (event) => {
-//     event.stopPropagation();
-//     closeModal();
-//   });
+  closeBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeModal();
+  });
 
-//   secondCloseBtn.addEventListener("click", (event) => {
-//     event.stopPropagation();
-//     closeModal();
-//   });
+  secondCloseBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeModal();
+  });
 
-//   //Other initialization functions
-//   initializeTextAreas();
-//   bindAddRemoveButtons();
-//   setupImageUploadHandlers();
+  //Other initialization functions
+  initializeTextAreas();
+  bindAddRemoveButtons();
+  setupImageUploadHandlers();
 
-//   document
-//     .getElementById("addInstructionBtn")
-//     .addEventListener("click", function () {
-//       createInstructionSection();
-//     });
+  document
+    .getElementById("addInstructionBtn")
+    .addEventListener("click", function () {
+      createInstructionSection();
+    });
 
-//   document
-//     .getElementById("minusInstructionBtn")
-//     .addEventListener("click", function () {
-//       const container = document.getElementById("instructionsContainer");
-//       if (container.children.length > 1) {
-//         container.removeChild(container.lastChild);
-//         allInstructions.pop();
-//         console.log("Section removed. Current sections:", allInstructions);
-//       }
-//     });
-//   initializeExistingSections();
-// });
+  document
+    .getElementById("minusInstructionBtn")
+    .addEventListener("click", function () {
+      const container = document.getElementById("instructionsContainer");
+      if (container.children.length > 1) {
+        container.removeChild(container.lastChild);
+        allInstructions.pop();
+        console.log("Section removed. Current sections:", allInstructions);
+      }
+    });
+  initializeExistingSections();
+});
+
+// ----------------------------------------------------------------
 
 function initializeTextAreas() {
   const textAreas = document.querySelectorAll(".ingredient-textarea");
@@ -480,8 +491,10 @@ function setupTextArea(textArea, index) {
     });
   }
 }
-
+let buttonsBound = false;
 function bindAddRemoveButtons() {
+  if (buttonsBound) return;
+  buttonsBound = true;
   document
     .getElementById("addIngredientBtn")
     .addEventListener("click", function () {
@@ -495,7 +508,7 @@ function bindAddRemoveButtons() {
     .getElementById("minusIngredientBtn")
     .addEventListener("click", function () {
       const container = document.getElementById("ingredientsContainer");
-      if (container.children.length > 1) {
+      if (container.children.length > 2) {
         container.removeChild(container.lastChild);
         allIngredientsLists.pop();
       }
@@ -522,24 +535,6 @@ function createIngredientSection(container) {
   return newTextArea;
 }
 
-function handleIngredientInput(event, index) {
-  const inputElement = event.target;
-  const lines = inputElement.value.split("\n");
-
-  let newIngredients = lines.map((line, lineIndex) => {
-    let existingIngredient =
-      allIngredientsLists[index].ingredients[lineIndex] || {};
-    return parseIngredientLine(line, existingIngredient);
-  });
-
-  allIngredientsLists[index].ingredients = newIngredients;
-  updateDropdown(inputElement, lines.length - 1, index);
-  console.log(
-    "Updated Ingredients List for textarea " + index + ":",
-    JSON.stringify(allIngredientsLists[index])
-  );
-}
-
 function parseIngredientLine(line, existingIngredient = {}) {
   const parts = line.trim().split(" ");
   const quantity = parts.pop();
@@ -552,33 +547,6 @@ function parseIngredientLine(line, existingIngredient = {}) {
   };
 }
 
-function updateDropdown(inputElement, lineIndex, index) {
-  const currentLineText = getLineText(inputElement, lineIndex);
-  if (currentLineText.length > 1) {
-    fetchIngredients(currentLineText.trim(), inputElement, lineIndex, index);
-  }
-}
-
-function getLineText(inputElement, lineIndex) {
-  const lines = inputElement.value.split("\n");
-  return lines[lineIndex] || "";
-}
-
-function fetchIngredients(search, inputElement, lineIndex, index) {
-  fetch("http://localhost/SimplyDelicious Website/getRecipeIngredients.php", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ search }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      displayDropdown(data, inputElement, lineIndex, index);
-    })
-    .catch((error) => {
-      console.error("Fetch error:", error);
-    });
-}
-
 function displayDropdown(ingredients, inputElement, lineIndex, index) {
   let existingDropdown = document.querySelector(".ingredientsDropdown");
   if (existingDropdown) {
@@ -588,6 +556,7 @@ function displayDropdown(ingredients, inputElement, lineIndex, index) {
   let dropdown = document.createElement("select");
   dropdown.className = "ingredientsDropdown";
   dropdown.style.width = "100%";
+  dropdown.style.height = `${Math.max(ingredients.length * 20, 100)}px`;
   dropdown.innerHTML =
     `<option value="" disabled selected>Select an ingredient</option>` +
     ingredients
@@ -641,49 +610,6 @@ function displayDropdown(ingredients, inputElement, lineIndex, index) {
   };
 }
 
-function extractQuantity(lineText) {
-  const quantityRegex = /(\d+\s*[a-zA-Z]*)$/;
-  const match = lineText.match(quantityRegex);
-  return match ? match[0] : "";
-}
-
-function updateLineText(inputElement, lineIndex, newText) {
-  let lines = inputElement.value.split("\n");
-  lines[lineIndex] = newText;
-  inputElement.value = lines.join("\n");
-}
-
-function saveOrUpdateIngredient(ingredient, lineIndex, index) {
-  let ingredientsSection = allIngredientsLists[index];
-
-  // Ensure that there's an ingredients array ready to be updated
-  if (!ingredientsSection.ingredients) {
-    ingredientsSection.ingredients = [];
-  }
-
-  // Check if an existing entry is being updated or if a new entry is being added
-  if (lineIndex < ingredientsSection.ingredients.length) {
-    ingredientsSection.ingredients[lineIndex] = ingredient; // update existing
-  } else {
-    ingredientsSection.ingredients.push(ingredient); // push new
-  }
-
-  console.log(
-    "Updated Ingredients List for textarea " + index + ":",
-    JSON.stringify(allIngredientsLists[index])
-  );
-}
-
-function setupImageUploadHandlers() {
-  const uploadButton = document.getElementById("uploadImageBtn");
-  const fileInput = document.getElementById("hiddenFileInput");
-
-  uploadButton.addEventListener("click", () => fileInput.click());
-  fileInput.addEventListener("change", function (event) {
-    handleFileUpload(event);
-  });
-}
-
 function handleFileUpload(event) {
   const file = event.target.files[0];
   if (file) {
@@ -734,120 +660,124 @@ const secondSection = document.getElementById("secondSection");
 const thirdSection = document.getElementById("thirdSection");
 const container = document.getElementById("instructionsContainer");
 
-// firstSectionButton.addEventListener("click", function () {
-//   console.log(
-//     "All ingredients lists at submission:",
-//     JSON.stringify(allIngredientsLists)
-//   );
-//   const recipeTitle = document.getElementById("recipeTitle").value.trim();
-//   console.log("Recipe Title:", recipeTitle);
+// --------------------------------------------------------------------------------------------
 
-//   if (!recipeTitle) {
-//     alert("Please enter a recipe title.");
-//     document.getElementById("recipeTitle").focus();
-//     return;
-//   }
+firstSectionButton.addEventListener("click", function () {
+  console.log(
+    "All ingredients lists at submission:",
+    JSON.stringify(allIngredientsLists)
+  );
+  const recipeTitle = document.getElementById("recipeTitle").value.trim();
+  console.log("Recipe Title:", recipeTitle);
 
-//   // Delay the file check slightly to ensure the DOM is fully updated
-//   setTimeout(() => {
-//     const fileInput = document.getElementById("profilePicUpload");
-//     console.log("Files selected: ", fileInput.files.length);
-//     if (fileInput.files.length === 0) {
-//       alert("Please upload an image.");
-//       return;
-//     }
+  if (!recipeTitle) {
+    alert("Please enter a recipe title.");
+    document.getElementById("recipeTitle").focus();
+    return;
+  }
 
-//     document.getElementById("firstSection").style.display = "none";
-//     document.getElementById("secondSection").style.display = "block";
-//   }, 100);
-// });
+  // Delay the file check slightly to ensure the DOM is fully updated
+  setTimeout(() => {
+    const fileInput = document.getElementById("profilePicUpload");
+    console.log("Files selected: ", fileInput.files.length);
+    if (fileInput.files.length === 0) {
+      alert("Please upload an image.");
+      return;
+    }
 
-// lastSectionBtn.addEventListener("click", () => {
-//   let allSectionsFilled = true;
+    document.getElementById("firstSection").style.display = "none";
+    document.getElementById("secondSection").style.display = "block";
+  }, 100);
+});
 
-//   allInstructions.forEach((section) => {
-//     if (section.subtitle === "" || section.instructions.length === 0) {
-//       allSectionsFilled = false;
-//     }
-//   });
+lastSectionBtn.addEventListener("click", () => {
+  let allSectionsFilled = true;
 
-//   if (!allSectionsFilled) {
-//     alert("Please fill in all subtitles and instructions before proceeding.");
-//   } else {
-//     document.getElementById("secondSection").style.display = "none";
-//     document.getElementById("thirdSection").style.display = "block";
-//   }
-// });
+  allInstructions.forEach((section) => {
+    if (section.subtitle === "" || section.instructions.length === 0) {
+      allSectionsFilled = false;
+    }
+  });
 
-// let nutritionFacts = {
-//   calories: { value: 0, unit: "g", valid: true },
-//   totalFat: { value: 0, unit: "g", valid: true },
-//   saturatedFat: { value: 0, unit: "g", valid: true },
-//   cholesterol: { value: 0, unit: "mg", valid: true },
-//   sodium: { value: 0, unit: "mg", valid: true },
-//   potassium: { value: 0, unit: "mg", valid: true },
-//   totalCarbohydrate: { value: 0, unit: "g", valid: true },
-//   sugars: { value: 0, unit: "g", valid: true },
-//   protein: { value: 0, unit: "g", valid: true },
-// };
+  if (!allSectionsFilled) {
+    alert("Please fill in all subtitles and instructions before proceeding.");
+  } else {
+    document.getElementById("secondSection").style.display = "none";
+    document.getElementById("thirdSection").style.display = "block";
+  }
+});
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   function updateNutritionFact(nutrientType, newValue) {
-//     const validFormat = /^\d+(\.\d+)?$/;
-//     if (validFormat.test(newValue)) {
-//       const value = parseFloat(newValue);
-//       nutritionFacts[nutrientType].value = isNaN(value) ? 0 : value;
-//       nutritionFacts[nutrientType].valid = true;
-//     } else {
-//       nutritionFacts[nutrientType].valid = false;
-//     }
-//   }
+let nutritionFacts = {
+  calories: { value: 0, unit: "g", valid: true },
+  totalFat: { value: 0, unit: "g", valid: true },
+  saturatedFat: { value: 0, unit: "g", valid: true },
+  cholesterol: { value: 0, unit: "mg", valid: true },
+  sodium: { value: 0, unit: "mg", valid: true },
+  potassium: { value: 0, unit: "mg", valid: true },
+  totalCarbohydrate: { value: 0, unit: "g", valid: true },
+  sugars: { value: 0, unit: "g", valid: true },
+  protein: { value: 0, unit: "g", valid: true },
+};
 
-//   const nutritionInputs = document.querySelectorAll(".nutrition-value");
-//   nutritionInputs.forEach((input) => {
-//     const nutrientType = input.id;
-//     input.value = nutritionFacts[nutrientType].value;
-//   });
+document.addEventListener("DOMContentLoaded", function () {
+  function updateNutritionFact(nutrientType, newValue) {
+    const validFormat = /^\d+(\.\d+)?$/;
+    if (validFormat.test(newValue)) {
+      const value = parseFloat(newValue);
+      nutritionFacts[nutrientType].value = isNaN(value) ? 0 : value;
+      nutritionFacts[nutrientType].valid = true;
+    } else {
+      nutritionFacts[nutrientType].valid = false;
+    }
+  }
 
-//   nutritionInputs.forEach((input) => {
-//     input.addEventListener("input", function () {
-//       const nutrientType = this.id;
-//       const newValue = this.value;
-//       if (!newValue.match(/^\d+(\.\d+)?$/)) {
-//         this.value = newValue.replace(/[^\d.]/g, "");
-//       }
-//       updateNutritionFact(nutrientType, this.value);
-//     });
-//   });
+  const nutritionInputs = document.querySelectorAll(".nutrition-value");
+  nutritionInputs.forEach((input) => {
+    const nutrientType = input.id;
+    input.value = nutritionFacts[nutrientType].value;
+  });
 
-//   document.querySelectorAll(".edit-icon").forEach((icon) => {
-//     icon.addEventListener("click", function () {
-//       let currentlyEditingInput =
-//         this.closest(".value-container").querySelector(".nutrition-value");
-//       currentlyEditingInput.readOnly = false;
-//       currentlyEditingInput.focus();
-//       document.getElementById("buttonContainer").style.display = "flex";
-//     });
-//   });
+  nutritionInputs.forEach((input) => {
+    input.addEventListener("input", function () {
+      const nutrientType = this.id;
+      const newValue = this.value;
+      if (!newValue.match(/^\d+(\.\d+)?$/)) {
+        this.value = newValue.replace(/[^\d.]/g, "");
+      }
+      updateNutritionFact(nutrientType, this.value);
+    });
+  });
 
-//   document.getElementById("saveButton").addEventListener("click", function () {
-//     nutritionInputs.forEach((input) => {
-//       const nutrientType = input.id;
-//       const newValue = input.value;
-//       updateNutritionFact(nutrientType, newValue);
-//     });
-//     document.getElementById("buttonContainer").style.display = "none";
-//   });
+  document.querySelectorAll(".edit-icon").forEach((icon) => {
+    icon.addEventListener("click", function () {
+      let currentlyEditingInput =
+        this.closest(".value-container").querySelector(".nutrition-value");
+      currentlyEditingInput.readOnly = false;
+      currentlyEditingInput.focus();
+      document.getElementById("buttonContainer").style.display = "flex";
+    });
+  });
 
-//   document
-//     .getElementById("cancelButton")
-//     .addEventListener("click", function () {
-//       nutritionInputs.forEach((input) => {
-//         input.readOnly = true;
-//       });
-//       document.getElementById("buttonContainer").style.display = "none";
-//     });
-// });
+  document.getElementById("saveButton").addEventListener("click", function () {
+    nutritionInputs.forEach((input) => {
+      const nutrientType = input.id;
+      const newValue = input.value;
+      updateNutritionFact(nutrientType, newValue);
+    });
+    document.getElementById("buttonContainer").style.display = "none";
+  });
+
+  document
+    .getElementById("cancelButton")
+    .addEventListener("click", function () {
+      nutritionInputs.forEach((input) => {
+        input.readOnly = true;
+      });
+      document.getElementById("buttonContainer").style.display = "none";
+    });
+});
+
+// ------------------------------------------------------------------------------------------------
 
 let selectedDietaryOptions = [];
 let selectedCuisines = [];
